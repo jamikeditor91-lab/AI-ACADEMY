@@ -69,13 +69,13 @@ export default function TutorialOverlay({ steps, onComplete }: TutorialOverlayPr
 
   return (
     <AnimatePresence>
-      <div className="tutorial-overlay" onClick={(e) => e.stopPropagation()}>
+      <div className="tutorial-overlay fixed inset-0 z-[9999] flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
         <motion.div
           ref={tooltipRef}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[10000] bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4"
+          className="bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full relative z-[10000]"
         >
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center gap-2">
