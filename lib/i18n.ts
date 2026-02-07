@@ -1,6 +1,6 @@
-import { Language } from '@/types';
+type LanguageCode = 'en' | 'es' | 'fr' | 'de' | 'zh';
 
-export const translations: Record<Language, Record<string, string>> = {
+export const translations: Record<LanguageCode, Record<string, string>> = {
   en: {
     'app.title': 'AI Academy',
     'app.subtitle': 'Learn AI tools through interactive tutorials',
@@ -153,6 +153,7 @@ export const translations: Record<Language, Record<string, string>> = {
   },
 };
 
-export function getTranslation(language: Language, key: string): string {
-  return translations[language]?.[key] || translations.en[key] || key;
+export function getTranslation(language: string, key: string): string {
+  const langCode = language as LanguageCode;
+  return translations[langCode]?.[key] || translations.en[key] || key;
 }
