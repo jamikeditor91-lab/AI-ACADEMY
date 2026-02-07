@@ -1,18 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useProgressStore } from '@/store/progressStore';
 import { LESSONS, getAvailableLessons, getLockedLessons } from '@/data/lessons';
-import { Clock, Star, Lock, TrendingUp, Award, Flame } from 'lucide-react';
+import { Clock, Star, Lock, TrendingUp, Award, Flame, Smartphone } from 'lucide-react';
 import TrendingSection from '@/components/TrendingSection';
 import DailyChallengeCard from '@/components/DailyChallengeCard';
+import VisualTutorialGuide from '@/components/VisualTutorialGuide';
 
 export default function HomePage() {
   const { xp, level, completedLessons, streak, badges } = useProgressStore();
   const availableLessons = getAvailableLessons(completedLessons);
   const lockedLessons = getLockedLessons(completedLessons);
+  const [showVisualGuide, setShowVisualGuide] = useState(false);
 
   const levelProgress = () => {
     if (level === 'beginner') return (xp / 1000) * 100;
@@ -83,6 +85,16 @@ export default function HomePage() {
                 className="bg-gradient-to-r from-primary-500 to-purple-500 h-full rounded-full"
               />
             </div>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <button
+              onClick={() => setShowVisualGuide(true)}
+              className="w-full md:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl"
+            >
+              <Smartphone className="w-5 h-5" />
+              <span className="font-medium">📱 Install on Mobile</span>
+            </button>
           </div>
         </motion.div>
 
@@ -193,6 +205,11 @@ export default function HomePage() {
           </div>
         )}
       </div>
+
+      <VisualTutorialGuide
+        isOpen={showVisualGuide}
+        onClose={() => setShowVisualGuide(false)}
+      />
     </div>
   );
 }
